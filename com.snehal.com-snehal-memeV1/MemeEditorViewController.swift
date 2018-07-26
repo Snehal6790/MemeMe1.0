@@ -28,16 +28,21 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         textfeild1.defaultTextAttributes = memeTextAttributes
         self.textfeild2.delegate = self.bottomtextfeild
         textfeild2.defaultTextAttributes = memeTextAttributes
+        
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(MemeEditorViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MemeEditorViewController.KeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
-        subscribeToKeyboardNotifications()
+          self.subscribeToKeyboardNotifications()
+        
+
+//        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
     }
-    
-    
-    
     
     override func viewWillDisappear(_ animated: Bool) {
         
@@ -115,9 +120,14 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     @objc func keyboardWillShow(_ notification:Notification) {
-        
-        view.frame.origin.y -= getKeyboardHeight(notification)
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
     }
+    
+    
     
     func getKeyboardHeight(_ notification:Notification) -> CGFloat {
         
@@ -126,7 +136,12 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         return keyboardSize.cgRectValue.height
     }
     
-   func UIKeyboardWillHide(_ notification:Notification)  {
+   @objc func KeyboardWillHide(_ notification:Notification)  {
+//    if ((notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue) != nil {
+//        if self.view.frame.origin.y != 0{
+//            self.view.frame.origin.y = 0
+//            }
+//        }
         view!.frame.origin.y = 0
     }
     
