@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Enable to save meme that user have created</string>
 	<key>NSCameraUsageDescription</key>
 	<string>User able to click picture and set meme for it</string>
 	<key>NSPhotoLibraryUsageDescription</key>

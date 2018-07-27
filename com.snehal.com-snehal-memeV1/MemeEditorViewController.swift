@@ -17,6 +17,10 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var items : UIToolbar!
     @IBOutlet weak var textfeild1 : UITextField!
     @IBOutlet weak var textfeild2 : UITextField!
+    @IBOutlet weak var camerabutton : UIBarButtonItem!
+    @IBOutlet weak var pick : UIBarButtonItem!
+    @IBOutlet weak var sharImagebutton : UIBarButtonItem!
+    @IBOutlet weak var cancelbutton : UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,20 +32,25 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         textfeild1.defaultTextAttributes = memeTextAttributes
         self.textfeild2.delegate = self.bottomtextfeild
         textfeild2.defaultTextAttributes = memeTextAttributes
+        self.sharImagebutton.isEnabled = false
         
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(MemeEditorViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(MemeEditorViewController.KeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-    }
+        
+        
+        
+        }
     
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
           self.subscribeToKeyboardNotifications()
         
+      camerabutton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
 
-//        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -80,7 +89,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) -> Bool{
-        return textfeild1.isEditing
+        return textField.isEditing
         
     }
     
@@ -137,14 +146,46 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
    @objc func KeyboardWillHide(_ notification:Notification)  {
-//    if ((notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue) != nil {
-//        if self.view.frame.origin.y != 0{
-//            self.view.frame.origin.y = 0
-//            }
-//        }
-        view!.frame.origin.y = 0
+        view.frame.origin.y = 0
     }
     
+    
+    func generateMemedImage() -> UIImage {
+        
+        self.items.isHidden = true
+        
+        // Render view to an image
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        return memedImage
+    }
+    
+    
+//    func save() {
+//        // Create the meme
+//        let meme = MemeEditorViewController(topText: textfeild1.text!, bottomText: textfeild2.text!, originalImage: imagepicker.image!, memedImage: generateMemedImage())
+//    }
+
+    
+    @IBAction func shareMeme(){
+        
+        let image = generateMemedImage()
+        let controller = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        
+        controller.completionWithItemsHandler = { (activityType, completed, returnedItems, activityError) -> () in
+            if (completed) {
+                self.generateMemedImage()
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+        
+        present(controller, animated: true, completion: nil)
+        
+        
+    }
     
 }
 
