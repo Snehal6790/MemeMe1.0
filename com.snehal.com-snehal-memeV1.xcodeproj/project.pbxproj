@@ -16,6 +16,7 @@
 		363CABE32108893700FE92AD /* com_snehal_com_snehal_memeV1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363CABE22108893700FE92AD /* com_snehal_com_snehal_memeV1UITests.swift */; };
 		363CABF42109DD1300FE92AD /* MemeTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363CABF32109DD1300FE92AD /* MemeTextFieldDelegate.swift */; };
 		363CABF7210A1EAC00FE92AD /* KeyBoardEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363CABF6210A1EAC00FE92AD /* KeyBoardEvent.swift */; };
+		36E46FD8210B2C63005FC1D8 /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E46FD7210B2C63005FC1D8 /* Meme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		363CABE42108893700FE92AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		363CABF32109DD1300FE92AD /* MemeTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemeTextFieldDelegate.swift; sourceTree = "<group>"; };
 		363CABF6210A1EAC00FE92AD /* KeyBoardEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyBoardEvent.swift; sourceTree = "<group>"; };
+		36E46FD7210B2C63005FC1D8 /* Meme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 		363CABB62108893500FE92AD = {
 			isa = PBXGroup;
 			children = (
+				36E46FD6210B2C52005FC1D8 /* Model */,
 				363CABF5210A1E9300FE92AD /* Helper */,
 				363CABF021088AC300FE92AD /* Controller */,
 				363CABC12108893500FE92AD /* com.snehal.com-snehal-memeV1 */,
@@ -145,6 +148,14 @@
 				363CABF6210A1EAC00FE92AD /* KeyBoardEvent.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		36E46FD6210B2C52005FC1D8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				36E46FD7210B2C63005FC1D8 /* Meme.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,6 +293,7 @@
 				363CABF7210A1EAC00FE92AD /* KeyBoardEvent.swift in Sources */,
 				363CABC32108893500FE92AD /* AppDelegate.swift in Sources */,
 				363CABF42109DD1300FE92AD /* MemeTextFieldDelegate.swift in Sources */,
+				36E46FD8210B2C63005FC1D8 /* Meme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
