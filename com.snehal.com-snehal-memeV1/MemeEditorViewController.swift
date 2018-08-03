@@ -65,10 +65,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     //Mark: This function let users enable to pick an image from the album or any videos
     //IMPOrtant : The sourcetype is .photoLibrary
     @IBAction func pickAnImageFromAlbum(_sender : Any){
-        let displayedimage = UIImagePickerController()
-        displayedimage.delegate = self
-        displayedimage.sourceType = .photoLibrary
-        present(displayedimage,animated: true , completion: nil)
+        pickimage(source: .photoLibrary)
+        
         
     }
     
@@ -108,11 +106,18 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     //Mark: Pick image from camera
     //Important is sourceType = .camera
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
+        pickimage(source: .camera)
+    }
+    
+    
+    
+    
+    func pickimage(source : UIImagePickerControllerSourceType){
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = source
+        imagePickerController.delegate = self
+        self.present(imagePickerController, animated: true, completion: nil)
         
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .camera
-        present(imagePicker, animated: true, completion: nil)
     }
     
     //Mark: Set Attributes of Text feild
@@ -138,8 +143,10 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     //Mark: Function of KeyboardWillShow
     @objc func keyboardWillShow(_ notification:Notification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if (textfeild2.isFirstResponder) {
             if self.view.frame.origin.y == 0{
                 self.view.frame.origin.y -= keyboardSize.height
+                }
             }
         }
     }
@@ -189,6 +196,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
                 self.generateMemedImage()
                 self.sharImagebutton.isEnabled = true
                 self.dismiss(animated: true, completion: nil)
+                self.save()
             }
         }
         
