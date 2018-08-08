@@ -40,8 +40,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         NotificationCenter.default.addObserver(self, selector: #selector(MemeEditorViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(MemeEditorViewController.KeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
-        
-        
         }
     //Mark: Subscribe to the keyboard Events and Camera option is been checked for the devices not having camera like Simulator
     
@@ -183,6 +181,9 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     func save() {
         // Create the meme
         let meme = Meme(textTop: textfeild1.text!, textBottom: textfeild2.text!, imageOriginal: imagepicker.image!, imageMemed: generateMemedImage())
+        let object = UIApplication.shared.delegate
+        let appDelegate = object as! AppDelegate
+        appDelegate.memes.append(meme)
     }
 
     //Mark: Function to invoke Share button option menu UIActivityView
@@ -193,7 +194,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
         controller.completionWithItemsHandler = { (activityType, completed, returnedItems, activityError) -> () in
             if (completed) {
-                self.generateMemedImage()
+                self.save()
                 self.sharImagebutton.isEnabled = true
                 self.dismiss(animated: true, completion: nil)
                 self.save()
